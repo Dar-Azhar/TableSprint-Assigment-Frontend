@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { FaArrowDown, FaArrowLeft, FaImage } from "react-icons/fa";
+import { FaArrowDown, FaArrowLeft, FaGrinStars, FaImage, } from "react-icons/fa";
 import { addCategory } from "../../api/FetchApi";
 import { useNavigate } from "react-router-dom";
+import PopUp from "../../components/PopUp";
+
 
 const AddCategory = () => {
     const [categoryName, setCategoryName] = useState("");
@@ -10,6 +12,7 @@ const AddCategory = () => {
     const [previewImage, setPreviewImage] = useState(null);
     const [errorMessage, setErrorMessage] = useState("");
     const [loading, setLoading] = useState(false);
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
     const navigate = useNavigate();
 
     const handleImageUpload = (e) => {
@@ -30,7 +33,11 @@ const AddCategory = () => {
     }, [previewImage]);
 
     const onBack = () => {
-        window.history.back();
+        navigate(-1);
+    };
+    const handleClosePopUp = () => {
+        setIsPopUpOpen(false);
+        navigate("/categories");
     };
 
     const onSave = async () => {
@@ -48,8 +55,7 @@ const AddCategory = () => {
                 setErrorMessage(response.error);
             } else {
                 setLoading(false);
-                alert("Category added successfully");
-                navigate("/categories");
+                setIsPopUpOpen(true)
                 setErrorMessage("");
                 setCategoryName("");
                 setSequence(1);
@@ -62,7 +68,7 @@ const AddCategory = () => {
     };
 
     return (
-        <div className="flex flex-col p-6 bg-white shadow-md rounded-md border border-gray-300 " style={{ height: 'calc(100vh - 65px)' }}>
+        <div className="flex flex-col p-6 bg-white shadow-md rounded-md border border-gray-300 mt-16 " style={{ height: 'calc(100vh - 65px)' }}>
             <div className="flex items-center mb-6">
                 <FaArrowLeft className="text-gray-600 cursor-pointer" onClick={onBack} />
                 <h2 className="text-xl font-semibold text-gray-800 ml-3">Add Category</h2>
@@ -133,6 +139,24 @@ const AddCategory = () => {
                     </div>
                 </>
             )}
+            <PopUp open={isPopUpOpen} onClose={handleClosePopUp} >
+                <div className="bg-white rounded-2xl p-8 shadow-xl w-72 md:w-96 text-center">
+                    <div className="flex flex-col items-center justify-center mb-4">
+                        <FaGrinStars className="text-primary text-3xl" />
+                        <h2 className="text-xl font-bold">Success!</h2>
+                    </div>
+                    <p className="text-gray-600">New Category has been added</p>
+                    <div className="flex justify-center gap-4 mt-6">
+
+                        <button
+                            className="bg-purple-700 text-white px-6 py-2 rounded-full hover:bg-purple-600"
+                            onClick={handleClosePopUp}
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </PopUp>
         </div>
     );
 };

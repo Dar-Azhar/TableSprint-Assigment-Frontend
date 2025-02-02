@@ -86,7 +86,7 @@ const Category = () => {
   return (
     <div className="p-4 bg-white shadow-md rounded-md">
       <div className="flex flex-col sm:flex-row justify-between items-end gap-4 mb-4">
-        <div className="flex items-center gap-4 w-full sm:w-auto">
+        <div className="flex items-center gap-4 w-full sm:w-auto mt-16">
           <img src={categoryIcon} className="size-6" alt="category-icon" />
           <h2 className="text-lg font-semibold">Categories</h2>
           <input

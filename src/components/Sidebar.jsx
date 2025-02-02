@@ -14,9 +14,9 @@ const menuItems = [
     { path: "/product", name: "Products", icon: productIcon },
 ];
 
-const Sidebar = ({ className = "", toggleSidebar }) => {
+const Sidebar = ({ className = "", toggleSidebar,  }) => {
     return (
-        <div className={`fixed  top-0 left-0 z-50 h-full bg-gray-100  shadow-2xl md:shadow-none transition-all transform ${className}`}>
+        <div className={`fixed  top-0 left-0 z-50 h-full bg-gray-100   shadow-2xl md:shadow-none transition-all transform ${className}`}>
             <div className="logo bg-primary px-5 py-2 border-b-2 border-primary">
                 <div className="flex items-center gap-5">
                     <img src={icon} alt="icon" />
